@@ -1,4 +1,146 @@
-<main>
+<main class="px-8 py-4 m-0">
+  <nav class="flex justify-between items-center mb-8">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="36"
+      height="36"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#136f63"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-badge-dollar-sign"
+    >
+      <path
+        d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+      />
+      <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+      <path d="M12 18V6" />
+    </svg>
+    <ul class="hidden max-w-96 w-full md:flex justify-end items-center gap-8">
+      <li class="flex justify-center items-center gap-2 font-bold header-tab">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-layout-dashboard"
+        >
+          <rect width="7" height="9" x="3" y="3" rx="1" />
+          <rect width="7" height="5" x="14" y="3" rx="1" />
+          <rect width="7" height="9" x="14" y="12" rx="1" />
+          <rect width="7" height="5" x="3" y="16" rx="1" />
+        </svg>
+        Painel
+      </li>
+      <li class="flex justify-center items-center gap-2 font-bold header-tab">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-hand-coins"
+        >
+          <path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" />
+          <path
+            d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"
+          />
+          <path d="m2 16 6 6" />
+          <circle cx="16" cy="9" r="2.9" />
+          <circle cx="6" cy="5" r="3" />
+        </svg>
+        Despesas
+      </li>
+      <li class="flex justify-center items-center gap-2 font-bold header-tab">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-receipt"
+        >
+          <path
+            d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+          />
+          <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+          <path d="M12 17.5v-11" />
+        </svg>
+        Receita
+      </li>
+      <li class="flex justify-center items-center gap-2 font-bold header-tab">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-receipt-text"
+        >
+          <path
+            d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"
+          />
+          <path d="M14 8H8" />
+          <path d="M16 12H8" />
+          <path d="M13 16H8" />
+        </svg>
+        Registros
+      </li>
+    </ul>
+  </nav>
+  <section
+    class="flex justify-evenly gap-8 lg:justify-between lg:gap-0 items-center flex-wrap md mb-8"
+  >
+    <analytical-card
+      main_title="Total de receita"
+      value="89,400"
+      subtitle="Queda de aprox. 77%"
+    />
+    <analytical-card
+      main_title="Total de despesas"
+      value="89,400"
+      subtitle="Queda de aprox. 77%"
+    />
+    <analytical-card
+      main_title="Último registro"
+      value="89,400"
+      subtitle="Lavagem do carro novo"
+    />
+    <analytical-card
+      main_title="Análise rápida"
+      value="45% dos gastos"
+      subtitle="vem da categoria (CATEGORIA)"
+    />
+  </section>
+  <div
+    class="w-full h-full flex justify-between items-center flex-wrap-reverse"
+  >
+    <table-component
+      [title]="'Tabela de contas do final do mês'"
+      [headers]="headers"
+      [footer_rows]="footer_rows"
+      [rows]="rows"
+    />
+  </div>
   <!-- <div class="content">
     <div class="left-side">
       <svg

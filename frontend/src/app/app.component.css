@@ -1,0 +1,10 @@
+.header-tab {
+  color: #136f63;
+  transition: 250ms ease-in-out;
+}
+
+.header-tab:hover {
+  color: #1eae9b;
+  cursor: pointer;
+  opacity: 0.7;
+}

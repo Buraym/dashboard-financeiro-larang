@@ -1,0 +1,124 @@
+<div
+  class="w-full h-full flex justify-center items-center shadow-xl rounded-lg p-8"
+>
+  <table class="w-full h-full table">
+    <thead>
+      <tr class="flex justify-center items-center gap-8 pb-8">
+        <th class="nunito text-xl font-bold">
+          {{ title }}
+        </th>
+      </tr>
+      <tr class="gap-8 w-full flex justify-between">
+        <th
+          *ngFor="let header_th of headers"
+          class="flex flex-1 nunito text-sm justify-center items-center gap-2"
+        >
+          {{ header_th.name }}
+          <button *ngIf="header_th?.sortable">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-arrow-up-1-0"
+              *ngIf="header_th?.sortable === 'number'"
+            >
+              <path d="m3 8 4-4 4 4" />
+              <path d="M7 4v16" />
+              <path d="M17 10V4h-2" />
+              <path d="M15 10h4" />
+              <rect x="15" y="14" width="4" height="6" ry="2" />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-arrow-down-0-1"
+              *ngIf="header_th?.sortable === 'number_desc'"
+            >
+              <path d="m3 16 4 4 4-4" />
+              <path d="M7 20V4" />
+              <rect x="15" y="4" width="4" height="6" ry="2" />
+              <path d="M17 20v-6h-2" />
+              <path d="M15 20h4" />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-arrow-down-a-z"
+              *ngIf="header_th?.sortable === 'string'"
+            >
+              <path d="m3 16 4 4 4-4" />
+              <path d="M7 20V4" />
+              <path d="M20 8h-5" />
+              <path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10" />
+              <path d="M15 14h5l-5 6h5" />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-arrow-up-a-z"
+              *ngIf="header_th?.sortable === 'string_desc'"
+            >
+              <path d="m3 8 4-4 4 4" />
+              <path d="M7 4v16" />
+              <path d="M20 8h-5" />
+              <path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10" />
+              <path d="M15 14h5l-5 6h5" />
+            </svg>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let row of rows"
+        class="flex flex-1 justify-center items-center gap-8 pt-8"
+      >
+        <td
+          *ngFor="let row_value of row.values"
+          class="flex flex-1 justify-center items-center nunito text-sm gap-2"
+        >
+          <p>
+            {{ row_value.value }}
+          </p>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="flex gap-8 pt-8">
+        <th
+          *ngFor="let footer_row of footer_rows"
+          class="flex nunito text-xs justify-center items-center gap-2"
+        >
+          {{ footer_row.name }}
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
