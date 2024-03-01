@@ -1,9 +1,10 @@
+import { NgClass, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'analytical-card',
   standalone: true,
-  imports: [],
+  imports: [NgClass, NgIf],
   templateUrl: './analytical-card.component.html',
   styleUrl: './analytical-card.component.css'
 })

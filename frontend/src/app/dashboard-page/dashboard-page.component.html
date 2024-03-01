@@ -1,0 +1,55 @@
+<!-- CARDS SECTION DESKTOP -->
+<section
+  class="hidden md:flex justify-evenly gap-8 lg:justify-between lg:gap-2 items-center flex-wrap md mb-4"
+>
+  <analytical-card
+    class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
+    main_title="Total de receita"
+    value="89,400"
+    subtitle="Queda de aprox. 77%"
+  />
+  <analytical-card
+    class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
+    main_title="Total de despesas"
+    value="89,400"
+    subtitle="Queda de aprox. 77%"
+  />
+  <analytical-card
+    class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
+    [main_title]="'Último registro'"
+    [value]="'R$ 89,40'"
+    [subtitle_operation]="'down'"
+    [subtitle]="'Lavagem do carro novo'"
+  />
+  <analytical-card
+    class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
+    main_title="Análise rápida"
+    value="45% dos gastos"
+    subtitle="vem da categoria (CATEGORIA)"
+  />
+</section>
+<!-- CARDS CAROUSEL SECTION MOBILE -->
+<section
+  class="flex md:hidden justify-evenly gap-8 lg:justify-between lg:gap-2 items-center flex-wrap md mb-8"
+>
+  <analytical-card
+    class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
+    main_title="Análise rápida"
+    value="45% dos gastos"
+    subtitle="vem da categoria (CATEGORIA)"
+  />
+</section>
+<section
+  class="w-full h-full flex justify-between items-center flex-wrap-reverse"
+>
+  <div class="flex w-full justify-center items-center md:w-3/4">
+    <table-component
+      class="w-full"
+      [title]="'Tabela de contas do final do mês'"
+      [headers]="headers"
+      [footer_rows]="footer_rows"
+      [rows]="rows"
+    />
+  </div>
+  <div class="flex w-full justify-center items-center md:w-1/4"></div>
+</section>

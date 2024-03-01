@@ -1,0 +1,22 @@
+.header-menu {
+  color: #136f63;
+  transition: 250ms ease-in-out;
+}
+
+.header-menu.open > svg.lucide-x {
+  display: flex;
+}
+
+.header-menu.open > svg.lucide-menu {
+  display: none;
+}
+
+.header-menu:hover {
+  color: #1eae9b;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.drawer {
+  transition: 250ms ease-in-out;
+}

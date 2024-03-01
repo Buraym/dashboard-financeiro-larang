@@ -1,7 +1,62 @@
 <div
-  class="flex w-80 flex-col justify-center items-start p-8 rounded-xl shadow-xl hover:opacity-50 hover:shadow-sm transition-all"
+  class="flex w-full flex-col justify-center items-start p-8 rounded-xl shadow-xl hover:opacity-50 hover:shadow-none transition-all"
 >
-  <p class="text-md font-semibold">{{ main_title }}</p>
-  <p class="text-3xl nunito font-extrabold">{{ value }}</p>
-  <small class="italic">{{ subtitle }}</small>
+  <p
+    class="text-md font-semibold"
+    [ngClass]="{
+      'dark-blue-primary-text': subtitle_operation === 'up',
+      'dark-red-primary-text': subtitle_operation === 'down'
+    }"
+  >
+    {{ main_title }}
+  </p>
+  <p
+    [ngClass]="{
+      'dark-blue-primary-text': subtitle_operation === 'up',
+      'dark-red-primary-text': subtitle_operation === 'down'
+    }"
+    class="text-3xl flex justify-start gap-2 items-center dark-blue-primary-text nunito font-extrabold"
+  >
+    {{ value }}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-arrow-up-right"
+      *ngIf="subtitle_operation === 'up'"
+    >
+      <path d="M7 7h10v10" />
+      <path d="M7 17 17 7" />
+    </svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-arrow-down-right"
+      *ngIf="subtitle_operation === 'down'"
+    >
+      <path d="m7 7 10 10" />
+      <path d="M17 7v10H7" />
+    </svg>
+  </p>
+  <small
+    class="italic"
+    [ngClass]="{
+      'dark-blue-primary-text': subtitle_operation === 'up',
+      'dark-red-primary-text': subtitle_operation === 'down'
+    }"
+    >{{ subtitle }}</small
+  >
 </div>

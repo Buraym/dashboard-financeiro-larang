@@ -8,3 +8,11 @@
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+.dark-blue-primary-text {
+  color: #136f63;
+}
+
+.dark-red-primary-text {
+  color: #c80421;
+}
