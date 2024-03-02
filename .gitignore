@@ -23,3 +23,5 @@ backend/Homestead.yaml
 backend/Homestead.json
 backend/.vagrant
 backend/.phpunit.result.cache
+frontend/src/environment/environment.ts
+frontend/src/environment/environment.prod.ts
