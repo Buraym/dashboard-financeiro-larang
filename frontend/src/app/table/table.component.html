@@ -1,9 +1,11 @@
 <div
-  class="w-full h-full flex justify-center items-center shadow-xl rounded-lg p-8"
+  class="w-full overflow-x-scroll h-full flex justify-start sm:justify-center sm:overflow-hidden items-center shadow-xl rounded-xl p-8"
 >
-  <table class="w-full h-full max-h-80 md:max-h-96 overflow-scroll">
-    <thead class="">
-      <tr class="flex justify-center items-center gap-8 pb-8">
+  <table
+    class="w-full max-w-80 sm:max-w-none h-full max-h-80 md:max-h-96 overflow-scroll"
+  >
+    <thead>
+      <tr class="hidden justify-center sm:flex items-center gap-8 pb-8">
         <th class="nunito text-xl font-bold">
           {{ title }}
         </th>

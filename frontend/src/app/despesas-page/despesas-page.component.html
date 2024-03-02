@@ -30,8 +30,9 @@
       </button>
       <button
         class="update-btn flex justify-center items-center w-8 h-8 rounded-md"
-        *ngIf="selected > 0"
+        *ngIf="selected === 1"
         title="Atualizar"
+        (click)="openUpdateModal()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,16 +103,20 @@
     >
       <input
         type="text"
+        (change)="changeNewExpense('name', $event)"
         class="w-full mb-3 styled-input p-2 rounded-lg"
         placeholder="Nome da despesa"
       />
       <input
         type="number"
+        (change)="changeNewExpense('ammount', $event)"
         class="w-full mb-3 styled-input p-2 rounded-lg"
         placeholder="Valor da despesa (R$)"
+        min="0.01"
       />
       <select
         class="w-full mb-3 styled-input p-2 rounded-lg"
+        (change)="changeNewExpense('method', $event)"
         placeholder="Selecione o método de cobrança"
       >
         <optgroup label="Cartão">
@@ -126,9 +131,47 @@
       </select>
       <input
         type="date"
+        [value]="today_date"
+        (change)="changeNewExpense('date', $event)"
         class="w-full mb-3 styled-input p-2 rounded-lg"
         placeholder="Data da cobrança"
+        title="Data da cobrança"
       />
+      <select
+        class="w-full mb-3 styled-input p-2 rounded-lg"
+        (change)="changeNewExpense('category', $event)"
+      >
+        <option value="" selected>Selecione a categoria ( opcional )</option>
+        <option value="1">Categoria I</option>
+      </select>
+      <input
+        type="date"
+        [value]="new_expense.dueDate"
+        (change)="changeNewExpense('dueDate', $event)"
+        class="w-full mb-3 styled-input p-2 rounded-lg"
+        placeholder="Data da validade"
+        title="Data da validade"
+      />
+      <div class="w-full flex flex-col justify-start items-center gap-3">
+        <div class="w-full flex justify-center items-center gap-2">
+          <input
+            type="checkbox"
+            id="new_expense_due_date"
+            [checked]="new_expense.hasInstallments"
+            (change)="changeNewExpense('hasInstallments', $event)"
+            class="dark-blue-accent-text"
+          />
+          <label for="new_expense_due_date"> Têm parcelas da despesa ? </label>
+        </div>
+        <input
+          type="number"
+          *ngIf="new_expense.hasInstallments"
+          [value]="new_expense.installments"
+          (change)="changeNewExpense('installments', $event)"
+          class="w-full mb-3 styled-input p-2 rounded-lg"
+          placeholder="Numero de parcelas"
+        />
+      </div>
     </div>
     <div class="w-full h-full flex justify-end items-center gap-2" active>
       <button

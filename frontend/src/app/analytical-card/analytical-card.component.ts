@@ -12,5 +12,6 @@ export class AnalyticalCardComponent {
   @Input() main_title!: string;
   @Input() value!: string;
   @Input() subtitle!: string;
-  @Input() subtitle_operation!: "down" | "up";
+  @Input() subtitle_operation!: "down" | "up" | "tip";
+  @Input() category!: string;
 }

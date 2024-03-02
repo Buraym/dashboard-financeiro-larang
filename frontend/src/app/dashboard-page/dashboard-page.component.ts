@@ -4,7 +4,7 @@ import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { format } from 'date-fns';
 @Component({
-  selector: 'app-dashboard-page',
+  selector: 'dashboard-page',
   standalone: true,
   imports: [AnalyticalCardComponent, TableComponent, NgIf, NgFor, NgClass],
   templateUrl: './dashboard-page.component.html',

@@ -1,13 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 import { environment } from "../environment/environment";
 
-interface IExpense {
+export interface IExpense {
   name: string;
-  ammount: string;
+  ammount: number;
   method: "credit_card" | "debit_card" | "card" | "pix" | "money";
-  date: Date;
+  date: string;
   category: null | string;
-  dueDate: null | Date;
+  dueDate: null | string;
   hasInstallments: boolean;
   installments: null | number;
 }

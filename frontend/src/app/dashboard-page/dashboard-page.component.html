@@ -5,14 +5,16 @@
   <analytical-card
     class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
     main_title="Total de receita"
-    value="89,400"
-    subtitle="Queda de aprox. 77%"
+    [value]="'R$ 89,40'"
+    [subtitle_operation]="'up'"
+    subtitle="Aumento de de aprox. 25%"
   />
   <analytical-card
     class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
-    main_title="Total de despesas"
-    value="89,400"
-    subtitle="Queda de aprox. 77%"
+    [main_title]="'Total de despesas'"
+    [value]="'R$ 89,40'"
+    [subtitle_operation]="'up'"
+    [subtitle]="'Queda de aprox. 13%'"
   />
   <analytical-card
     class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
@@ -23,9 +25,10 @@
   />
   <analytical-card
     class="w-full max-w-80 md:w-1/2 xl:w-1/5 xl:min-w-80"
-    main_title="Análise rápida"
-    value="45% dos gastos"
-    subtitle="vem da categoria (CATEGORIA)"
+    [main_title]="'Análise rápida'"
+    [value]="'45% dos gastos'"
+    [subtitle_operation]="'tip'"
+    [subtitle]="'vem da categoria (CATEGORIA)'"
   />
 </section>
 <!-- CARDS CAROUSEL SECTION MOBILE -->
