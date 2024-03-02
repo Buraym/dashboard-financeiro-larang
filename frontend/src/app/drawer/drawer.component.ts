@@ -19,17 +19,18 @@ import { NgClass } from '@angular/common';
   animations: [
     trigger('OpenMenu', [
       state('open', style({
-        left: '0px',
-        opacity: 1
+        opacity: 1,
+        left: 0,
+        position: "fixed",
       })),
       state('closed', style({
         opacity: 0
       })),
       transition('open => closed', [
-        animate('0.2s')
+        animate('250ms ease-in-out')
       ]),
       transition('closed => open', [
-        animate('0.2s')
+        animate('250ms ease-in-out')
       ]),
     ]),
   ]
@@ -38,6 +39,6 @@ export class DrawerComponent {
   opened_menu = false;
   OpenMenu() {
     this.opened_menu = !this.opened_menu;
-    console.log(`ALTEROU PARA: ${this.opened_menu}`)
+    console.log(this.opened_menu)
   }
 }

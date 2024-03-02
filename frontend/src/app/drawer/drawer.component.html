@@ -2,7 +2,7 @@
   type="button"
   class="block md:hidden header-menu"
   (click)="OpenMenu()"
-  [ngClass]="{ open: opened_menu }"
+  [ngClass]="{ open: opened_menu, closed: !opened_menu }"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"

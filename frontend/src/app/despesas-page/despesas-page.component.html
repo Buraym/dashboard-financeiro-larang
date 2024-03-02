@@ -1,16 +1,179 @@
-<section
-  class="w-full h-full flex justify-between items-center flex-wrap-reverse"
->
-  <div class="flex w-full justify-center items-center md:w-3/4">
-    <table-component
-      class="w-full"
-      [title]="'Registros das despesas'"
-      [headers]="headers"
-      [footer_rows]="footer_rows"
-      [rows]="rows"
-    />
+<section class="w-full h-full flex flex-col justify-start items-center gap-4">
+  <div
+    class="w-full h-16 rounded-lg shadow-lg p-3 flex justify-between items-center"
+  >
+    <p class="mb-0">{{ selected }} Selecionado(s)</p>
+    <div class="flex h-full justify-end items-center gap-4">
+      <button
+        class="add-btn flex justify-center items-center w-8 h-8 rounded-md"
+        [title]="selected > 0 ? 'Clonar' : 'Registrar novo'"
+        (click)="openRegisterModal()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-badge-plus"
+        >
+          <path
+            d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+          />
+          <line x1="12" x2="12" y1="8" y2="16" />
+          <line x1="8" x2="16" y1="12" y2="12" />
+        </svg>
+      </button>
+      <button
+        class="update-btn flex justify-center items-center w-8 h-8 rounded-md"
+        *ngIf="selected > 0"
+        title="Atualizar"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-pen"
+        >
+          <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+        </svg>
+      </button>
+      <button
+        class="delete-btn flex justify-center items-center w-8 h-8 rounded-md"
+        *ngIf="selected > 0"
+        title="Deletar"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-trash-2"
+        >
+          <path d="M3 6h18" />
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+          <line x1="10" x2="10" y1="11" y2="17" />
+          <line x1="14" x2="14" y1="11" y2="17" />
+        </svg>
+      </button>
+    </div>
   </div>
-  <div class="flex w-full justify-center items-center md:w-1/4">
-    REGISTRO DE DESPESAS
+  <div class="w-full flex justify-between items-center flex-wrap-reverse">
+    <div class="flex w-full justify-center items-center md:w-3/4">
+      <table-component
+        class="w-full"
+        [title]="'Registros das despesas'"
+        [headers]="headers"
+        [footer_rows]="footer_rows"
+        [rows]="rows"
+        [selectable]="true"
+        [selectable_array]="selectable_array"
+        (selectable_array_parent)="updateTables($event)"
+      />
+    </div>
+    <div class="flex w-full justify-center items-center md:w-1/4">
+      GRÁFICO DE DESPESAS
+    </div>
   </div>
+  <modal
+    [title]="'Registrar nova despesa ?'"
+    [active]="open_register_modal"
+    (active_parent)="updateModalState('register', $event)"
+  >
+    <div
+      class="w-full h-full flex-col justify-start items-center gap-8"
+      content
+    >
+      <input
+        type="text"
+        class="w-full mb-3 styled-input p-2 rounded-lg"
+        placeholder="Nome da despesa"
+      />
+      <input
+        type="number"
+        class="w-full mb-3 styled-input p-2 rounded-lg"
+        placeholder="Valor da despesa (R$)"
+      />
+      <select
+        class="w-full mb-3 styled-input p-2 rounded-lg"
+        placeholder="Selecione o método de cobrança"
+      >
+        <optgroup label="Cartão">
+          <option value="credit_card">Cartão de Crédito</option>
+          <option value="debit_card">Cartão de Débito</option>
+          <option value="card">Cartão de Crédito / Débito</option>
+        </optgroup>
+        <optgroup label="Outros">
+          <option value="pix">Pix</option>
+          <option value="money">Dinheiro</option>
+        </optgroup>
+      </select>
+      <input
+        type="date"
+        class="w-full mb-3 styled-input p-2 rounded-lg"
+        placeholder="Data da cobrança"
+      />
+    </div>
+    <div class="w-full h-full flex justify-end items-center gap-2" active>
+      <button
+        class="add-btn w-1/2 p-2 rounded-lg flex justify-center items-center gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-badge-plus"
+        >
+          <path
+            d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+          />
+          <line x1="12" x2="12" y1="8" y2="16" />
+          <line x1="8" x2="16" y1="12" y2="12" />
+        </svg>
+        Registrar
+      </button>
+      <button
+        class="cancel-btn w-1/2 p-2 rounded-lg flex justify-center items-center gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-ban"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="m4.9 4.9 14.2 14.2" />
+        </svg>
+        Cancelar
+      </button>
+    </div>
+  </modal>
 </section>

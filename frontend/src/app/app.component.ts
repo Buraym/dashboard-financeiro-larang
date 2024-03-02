@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, isDevMode  } from '@angular/core';
 import { NgFor, NgIf, NgClass } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { ITableFooter, ITableHeader, ITableRows } from './table/table.component';
 import { DrawerComponent } from './drawer/drawer.component';
+import { environment } from '../environment/environment';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +11,12 @@ import { DrawerComponent } from './drawer/drawer.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    if (isDevMode()) {
+      console.log('DEV MODE.:');
+    } else {
+      console.log('PRODUCTION.:');
+    }
+  }
 }

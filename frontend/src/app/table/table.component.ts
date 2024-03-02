@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, Input, booleanAttribute } from '@angular/core';
+import { Component, EventEmitter, Input, Output, booleanAttribute } from '@angular/core';
 
 export interface ITableHeader {
   name: string;
@@ -39,6 +39,9 @@ export class TableComponent {
   @Input() rows!: Array<ITableRows>;
   @Input() filtered_rows!: Array<ITableRows>;
   @Input() footer_rows!: Array<ITableFooter>;
+  @Input({ transform: booleanAttribute }) selectable!: boolean;
+  @Input() selectable_array!: Array<string>;
+  @Output() selectable_array_parent = new EventEmitter<Array<string>>();
 
   sortByHeader(header_code: string){
     let chosen_header = this.headers.find((header) => header.code === header_code);
@@ -82,5 +85,36 @@ export class TableComponent {
       return h;
     })
     console.log(sorted_list)
+  }
+
+  isChecked(id: string){
+    return this.selectable_array.includes(id) ? true : false;
+  }
+
+  selectRowById(id: string) {
+    if (this.selectable_array.includes(id)) {
+      const updated_arr = this.selectable_array.filter((row) => row !== id);
+      this.selectable_array = updated_arr;
+      this.selectable_array_parent.emit(updated_arr);
+    } else {
+      const updated_arr = [...this.selectable_array, id];
+      this.selectable_array = updated_arr;
+      this.selectable_array_parent.emit(updated_arr);
+    }
+  }
+
+  isAllChecked(){
+    return this.selectable_array.length === this.rows.length ? true : false;
+  }
+
+  toggleAllChecked(){
+    if (this.selectable_array.length > 0) {
+      this.selectable_array = [];
+      this.selectable_array_parent.emit([]);
+    } else {
+      const updated_arr = this.rows.map((row) => row.id);
+      this.selectable_array = updated_arr;
+      this.selectable_array_parent.emit(updated_arr);
+    }
   }
 }

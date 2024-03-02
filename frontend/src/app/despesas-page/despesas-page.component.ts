@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { format } from 'date-fns';
 import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table/table.component';
+import { NgIf } from '@angular/common';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-despesas-page',
   standalone: true,
-  imports: [TableComponent],
+  imports: [TableComponent, ModalComponent ,NgIf],
   templateUrl: './despesas-page.component.html',
   styleUrl: './despesas-page.component.css'
 })
@@ -19,10 +21,6 @@ export class DespesasPageComponent {
       code: "name",
       name: "Nome da transação",
       sortable: "string"
-    },
-    {
-      code: "type",
-      name: "Tipo"
     },
     {
       code: "ammount",
@@ -46,10 +44,6 @@ export class DespesasPageComponent {
           value: "Suprimentos da Lanchonete"
         },
         {
-          code: "type",
-          value: "Despesa"
-        },
-        {
           code: "ammount",
           value: 13.57
         },
@@ -61,37 +55,11 @@ export class DespesasPageComponent {
       ]
     },
     {
-      id: "13",
-      values: [
-        {
-          code: "name",
-          value: "Salario do mês"
-        },
-        {
-          code: "type",
-          value: "Receita"
-        },
-        {
-          code: "ammount",
-          value: 1800.00
-        },
-        {
-          code: "date",
-          sortableValue: new Date(2024, 1, 28).getTime(),
-          value: format(new Date(2024, 1, 28), "dd/MM/yyyy")
-        },
-      ]
-    },
-    {
       id: "11",
       values: [
         {
           code: "name",
           value: "Compra de jogo: Fallout 4"
-        },
-        {
-          code: "type",
-          value: "Despesa"
         },
         {
           code: "ammount",
@@ -112,10 +80,6 @@ export class DespesasPageComponent {
           value: "Troca de penu do fusca"
         },
         {
-          code: "type",
-          value: "Despesa"
-        },
-        {
           code: "ammount",
           value: 157.40
         },
@@ -133,4 +97,42 @@ export class DespesasPageComponent {
       name: "Dica .: Sempre tente reservar um dinheiro para investir e/ou em reserva de capital rápido."
     },
   ]
+  selectable_array: Array<string> = [];
+  selected: number = 0;
+  open_register_modal = false;
+  open_update_modal = false;
+  open_delete_modal = false;
+  today_date = format(new Date(), "dd/MM/yyyy")
+
+  updateTables(value: any) {
+    console.log(value);
+    this.selectable_array = value;
+    this.selected = value.length
+  }
+
+  openRegisterModal() {
+    this.open_register_modal = true;
+  }
+
+  openUpdateModal() {
+    this.open_update_modal = true;
+  }
+
+  openDeleteModal() {
+    this.open_delete_modal = true;
+  }
+
+  updateModalState(type: "register" | "update" | "delete", data: boolean) {
+    switch(type) {
+      case "register":
+        this.open_register_modal = data;
+        break;
+      case "update":
+        this.open_update_modal = data;
+        break;
+      case "delete":
+        this.open_delete_modal = data;
+        break;
+    }
+  }
 }

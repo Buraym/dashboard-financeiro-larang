@@ -10,8 +10,19 @@
       </tr>
       <tr class="gap-8 w-full flex justify-between">
         <th
-          *ngFor="let header_th of headers"
+          *ngIf="selectable"
           class="flex flex-1 nunito text-sm justify-center items-center gap-2"
+        >
+          <input
+            type="checkbox"
+            class="dark-blue-accent-text"
+            [checked]="isAllChecked()"
+            (change)="toggleAllChecked()"
+          />
+        </th>
+        <th
+          *ngFor="let header_th of headers"
+          class="flex flex-1 nunito leading-3 text-sm justify-center items-center gap-2"
         >
           {{ header_th.name }}
           <button
@@ -66,14 +77,14 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-arrow-down-a-z"
+              class="lucide lucide-arrow-up-z-a"
               *ngIf="header_th?.sortable === 'string'"
             >
-              <path d="m3 16 4 4 4-4" />
-              <path d="M7 20V4" />
-              <path d="M20 8h-5" />
-              <path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10" />
-              <path d="M15 14h5l-5 6h5" />
+              <path d="m3 8 4-4 4 4" />
+              <path d="M7 4v16" />
+              <path d="M15 4h5l-5 6h5" />
+              <path d="M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" />
+              <path d="M20 18h-5" />
             </svg>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,14 +96,14 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="lucide lucide-arrow-up-a-z"
+              class="lucide lucide-arrow-down-z-a"
               *ngIf="header_th?.sortable === 'string_desc'"
             >
-              <path d="m3 8 4-4 4 4" />
+              <path d="m3 16 4 4 4-4" />
               <path d="M7 4v16" />
-              <path d="M20 8h-5" />
-              <path d="M15 10V6.5a2.5 2.5 0 0 1 5 0V10" />
-              <path d="M15 14h5l-5 6h5" />
+              <path d="M15 4h5l-5 6h5" />
+              <path d="M15 20v-3.5a2.5 2.5 0 0 1 5 0V20" />
+              <path d="M20 18h-5" />
             </svg>
           </button>
         </th>
@@ -103,6 +114,17 @@
         *ngFor="let row of rows"
         class="flex flex-1 justify-center items-center gap-8 pt-8"
       >
+        <td
+          *ngIf="selectable"
+          class="flex flex-1 nunito text-sm justify-center items-center gap-2"
+        >
+          <input
+            type="checkbox"
+            class="dark-blue-accent-text"
+            [checked]="isChecked(row.id)"
+            (change)="selectRowById(row.id)"
+          />
+        </td>
         <td class="flex flex-1 justify-center items-center">
           <p class="nunito text-xs">
             {{ row.id }}

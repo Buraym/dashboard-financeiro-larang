@@ -13,6 +13,69 @@
   color: #136f63;
 }
 
+.dark-blue-accent-text {
+  accent-color: #136f63;
+}
+
+.dark-orange-primary-text {
+  color: #f36e2b;
+}
+
+.dark-orange-accent-text {
+  accent-color: #f36e2b;
+}
+
 .dark-red-primary-text {
   color: #c80421;
+}
+
+.dark-red-accent-text {
+  accent-color: #c80421;
+}
+
+.add-btn {
+  color: #136f63;
+  transition: 250ms ease-in-out;
+}
+
+.add-btn:hover {
+  background: #136f63;
+  color: #fff;
+}
+
+.update-btn {
+  color: #f36e2b;
+  transition: 250ms ease-in-out;
+}
+
+.update-btn:hover {
+  background: #f36e2b;
+  color: #fff;
+}
+
+.delete-btn {
+  color: #c80421;
+  transition: 250ms ease-in-out;
+}
+
+.delete-btn:hover {
+  color: #fff;
+  background: #c80421;
+}
+
+.cancel-btn {
+  background: #eee;
+  color: #aaa;
+  transition: 250ms ease-in-out;
+}
+
+.cancel-btn:hover {
+  background: #aaa;
+  color: #fff;
+  transition: 250ms ease-in-out;
+}
+
+.styled-input {
+  background: #eee;
+  outline: none !important;
 }
