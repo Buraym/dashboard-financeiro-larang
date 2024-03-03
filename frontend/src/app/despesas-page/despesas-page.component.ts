@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { format } from 'date-fns';
 import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table/table.component';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { IExpense } from '../expenses.service';
+import { ChartComponent, IChartData } from '../chart/chart.component';
 
 @Component({
   selector: 'despesas-page',
   standalone: true,
-  imports: [TableComponent, ModalComponent, NgIf],
+  imports: [TableComponent, ModalComponent, ChartComponent, NgIf, NgFor],
   templateUrl: './despesas-page.component.html',
   styleUrl: './despesas-page.component.css'
 })
@@ -101,7 +102,37 @@ export class DespesasPageComponent {
     },
   ]
   selectable_array: Array<string> = [];
+  selectable_array_ids: string = "";
+  selectable_array_names: string = "";
   selected: number = 0;
+
+  chartData: Array<IChartData> = [
+    {
+      color: "#0d3b66",
+      data: 13.5,
+      label: "DESP.: 1"
+    },
+    {
+      color: "#faf0ca",
+      data: 13.5,
+      label: "DESP.: 2"
+    },
+    {
+      color: "#f4d35e",
+      data: 13.5,
+      label: "DESP.: 3"
+    },
+    {
+      color: "#ee964b",
+      data: 13.5,
+      label: "DESP.: 4"
+    },
+    {
+      color: "#f95738",
+      data: 13.5,
+      label: "DESP.: 5"
+    },
+  ]
 
   // MODALS
   open_register_modal = false;
@@ -117,10 +148,15 @@ export class DespesasPageComponent {
     this.open_register_modal = true;
   }
   openUpdateModal() {
-    console.log(this.selectable_array[0]);
+    this.selectable_array_names = this.rows.filter((row) => this.selectable_array.includes(row.id))
+      .map((row) => row.values.find((row_value) => row_value.code === "name")?.value).join(", ");
+    this.selectable_array_ids = this.selectable_array.join(", ");
     this.open_update_modal = true;
   }
   openDeleteModal() {
+    this.selectable_array_names = this.rows.filter((row) => this.selectable_array.includes(row.id))
+      .map((row) => row.values.find((row_value) => row_value.code === "name")?.value).join(", ");
+    this.selectable_array_ids = this.selectable_array.join(", ");
     this.open_delete_modal = true;
   }
   updateModalState(type: "register" | "update" | "delete", data: boolean) {

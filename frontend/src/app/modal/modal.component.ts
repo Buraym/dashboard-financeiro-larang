@@ -7,7 +7,7 @@ import {
   transition
 } from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, EventEmitter, Input, Output, booleanAttribute } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostListener, booleanAttribute } from '@angular/core';
 
 @Component({
   selector: 'modal',
@@ -55,5 +55,13 @@ export class ModalComponent {
     this.active_parent.emit(false);
     console.log("FECHOU", this.active, this.active_parent)
 
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(event.key)
+    if (String(event.key) === "Escape") {
+      this.Close();
+    }
   }
 }

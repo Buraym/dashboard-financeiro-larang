@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { AfterRenderPhase, Component, afterRender } from '@angular/core';
 import { AnalyticalCardComponent } from '../analytical-card/analytical-card.component';
 import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table/table.component';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { format } from 'date-fns';
+import { ChartComponent, IChartData } from '../chart/chart.component';
 @Component({
   selector: 'dashboard-page',
   standalone: true,
-  imports: [AnalyticalCardComponent, TableComponent, NgIf, NgFor, NgClass],
+  imports: [AnalyticalCardComponent, TableComponent, NgIf, NgFor, NgClass, ChartComponent],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css'
 })
@@ -132,6 +133,33 @@ export class DashboardPageComponent {
     {
       code: "tip",
       name: "Dica .: Sempre tente reservar um dinheiro para investir e/ou em reserva de capital rápido."
+    },
+  ]
+  chartData: Array<IChartData> = [
+    {
+      color: "#0d3b66",
+      data: 13.5,
+      label: "DESP.: 1"
+    },
+    {
+      color: "#faf0ca",
+      data: 13.5,
+      label: "DESP.: 2"
+    },
+    {
+      color: "#f4d35e",
+      data: 13.5,
+      label: "DESP.: 3"
+    },
+    {
+      color: "#ee964b",
+      data: 13.5,
+      label: "DESP.: 4"
+    },
+    {
+      color: "#f95738",
+      data: 13.5,
+      label: "DESP.: 5"
     },
   ]
 }
