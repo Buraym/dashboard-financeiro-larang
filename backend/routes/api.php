@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/expenses', [App\Http\Controllers\ExpensesController::class, "index"]);
-Route::get('/incomes', [App\Http\Controllers\ExpensesController::class, "index"]);
+Route::get('/incomes', [App\Http\Controllers\IncomesController::class, "index"]);
+Route::get('/categories', [App\Http\Controllers\CategoriesController::class, "index"]);
