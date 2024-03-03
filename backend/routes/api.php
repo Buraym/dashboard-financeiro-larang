@@ -17,7 +17,14 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-Route::get('/expenses', [App\Http\Controllers\ExpensesController::class, "index"]);
+Route::prefix('/expenses')->group(function () {
+    Route::get('/', [App\Http\Controllers\ExpensesController::class, "index"]);
+    Route::get('/{id}', [App\Http\Controllers\ExpensesController::class, "show"]);
+    Route::post('/', [App\Http\Controllers\ExpensesController::class, "store"]);
+    Route::patch('/{id}', [App\Http\Controllers\ExpensesController::class, "update"]);
+    Route::delete('/{id}', [App\Http\Controllers\ExpensesController::class, "destroy"]);
+});
 Route::get('/incomes', [App\Http\Controllers\IncomesController::class, "index"]);
 Route::get('/categories', [App\Http\Controllers\CategoriesController::class, "index"]);
+
+http://127.0.0.1:8000/
