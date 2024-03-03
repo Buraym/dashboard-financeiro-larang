@@ -11,11 +11,27 @@ class IncomesController extends Controller
     {
         $this->income = $income;
     }
+
+    /**
+     * Retrieves all the incomes
+     *
+     * @return array<\App\Models\Income>
+     *
+     * @throws \Exception
+     */
     public function index()
     {
         return Income::all();
     }
 
+    /**
+     * Find income by id
+     *
+     * @param  string  $id
+     * @return \App\Models\Income
+     *
+     * @throws \Exception
+     */
     public function show($id)
     {
         $income = $this->income->find($id);
@@ -26,6 +42,14 @@ class IncomesController extends Controller
         return response()->json($income, 200);
     }
 
+    /**
+     * Register new income
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Models\Income
+     *
+     * @throws \Exception
+     */
     public function store(Request $request)
     {
         // dd($request);
@@ -42,6 +66,15 @@ class IncomesController extends Controller
         return response()->json($income, 201);
     }
 
+    /**
+     * Edit income attributes
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \App\Models\Income
+     *
+     * @throws \Exception
+     */
     public function update(Request $request, $id)
     {
         $income = $this->income->find($id);
@@ -66,6 +99,14 @@ class IncomesController extends Controller
         return response()->json($income, 200);
     }
 
+    /**
+     * Delete expense
+     *
+     * @param  string  $id
+     * @return void
+     *
+     * @throws \Exception
+     */
     public function destroy($id)
     {
         $income = $this->income->find($id);

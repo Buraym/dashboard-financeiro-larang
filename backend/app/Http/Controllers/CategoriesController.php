@@ -11,11 +11,27 @@ class CategoriesController extends Controller
     {
         $this->category = $category;
     }
+
+    /**
+     * Retrieves all the categories
+     *
+     * @return array<\App\Models\Category>
+     *
+     * @throws \Exception
+     */
     public function index()
     {
         return Category::all();
     }
 
+    /**
+     * Find category by id
+     *
+     * @param  string  $id
+     * @return \App\Models\Category
+     *
+     * @throws \Exception
+     */
     public function show($id)
     {
         $category = $this->category->find($id);
@@ -26,6 +42,14 @@ class CategoriesController extends Controller
         return response()->json($category, 200);
     }
 
+    /**
+     * Register new category
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Models\Category
+     *
+     * @throws \Exception
+     */
     public function store(Request $request)
     {
         // dd($request);
@@ -37,6 +61,15 @@ class CategoriesController extends Controller
         return response()->json($category, 201);
     }
 
+    /**
+     * Edit category attributes
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \App\Models\Category
+     *
+     * @throws \Exception
+     */
     public function update(Request $request, $id)
     {
         $category = $this->category->find($id);
@@ -61,6 +94,14 @@ class CategoriesController extends Controller
         return response()->json($category, 200);
     }
 
+    /**
+     * Delete category
+     *
+     * @param  string  $id
+     * @return void
+     *
+     * @throws \Exception
+     */
     public function destroy($id)
     {
         $category = $this->category->find($id);

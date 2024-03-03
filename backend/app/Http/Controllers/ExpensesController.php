@@ -12,11 +12,27 @@ class ExpensesController extends Controller
     {
         $this->expense = $expense;
     }
+
+    /**
+     * Retrieves all the expenses
+     *
+     * @return array<\App\Models\Expense>
+     *
+     * @throws \Exception
+     */
     public function index()
     {
         return Expense::all();
     }
 
+    /**
+     * Find expense by id
+     *
+     * @param  string  $id
+     * @return \App\Models\Expense
+     *
+     * @throws \Exception
+     */
     public function show($id)
     {
         $expense = $this->expense->find($id);
@@ -27,6 +43,14 @@ class ExpensesController extends Controller
         return response()->json($expense, 200);
     }
 
+    /**
+     * Register new expense
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Models\Expense
+     *
+     * @throws \Exception
+     */
     public function store(Request $request)
     {
         // dd($request);
@@ -44,6 +68,15 @@ class ExpensesController extends Controller
         return response()->json($expense, 201);
     }
 
+    /**
+     * Edit expense attributes
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \App\Models\Expense
+     *
+     * @throws \Exception
+     */
     public function update(Request $request, $id)
     {
         $expense = $this->expense->find($id);
@@ -68,6 +101,14 @@ class ExpensesController extends Controller
         return response()->json($expense, 200);
     }
 
+    /**
+     * Delete expense
+     *
+     * @param  string  $id
+     * @return void
+     *
+     * @throws \Exception
+     */
     public function destroy($id)
     {
         $expense = $this->expense->find($id);
