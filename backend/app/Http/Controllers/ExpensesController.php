@@ -53,9 +53,9 @@ class ExpensesController extends Controller
 
         if ($request->method() === "PATCH") {
             $dynamic_rules = array();
-            foreach ($expense->rules() as $input => $regra) {
+            foreach ($expense->rules() as $input => $rule) {
                 if (array_key_exists($input, $request->all())) {
-                    $dynamic_rules[$input] = $regra;
+                    $dynamic_rules[$input] = $rule;
                 }
             }
             $request->validate($dynamic_rules, $expense->feedback());
@@ -75,6 +75,6 @@ class ExpensesController extends Controller
             return response()->json(["erro" => "Impossível realizar a exclusão. O recurso solicitado não existe."], 404);
         }
         $expense->delete();
-        return response()->json(["msg" => "Despesa removido com sucesso !"], 200);
+        return response()->json(["msg" => "Despesa removido]a com sucesso !"], 200);
     }
 }

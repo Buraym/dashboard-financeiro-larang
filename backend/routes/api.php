@@ -24,7 +24,19 @@ Route::prefix('/expenses')->group(function () {
     Route::patch('/{id}', [App\Http\Controllers\ExpensesController::class, "update"]);
     Route::delete('/{id}', [App\Http\Controllers\ExpensesController::class, "destroy"]);
 });
-Route::get('/incomes', [App\Http\Controllers\IncomesController::class, "index"]);
-Route::get('/categories', [App\Http\Controllers\CategoriesController::class, "index"]);
 
-http://127.0.0.1:8000/
+Route::prefix('/incomes')->group(function () {
+    Route::get('/', [App\Http\Controllers\IncomesController::class, "index"]);
+    Route::get('/{id}', [App\Http\Controllers\IncomesController::class, "show"]);
+    Route::post('/', [App\Http\Controllers\IncomesController::class, "store"]);
+    Route::patch('/{id}', [App\Http\Controllers\IncomesController::class, "update"]);
+    Route::delete('/{id}', [App\Http\Controllers\IncomesController::class, "destroy"]);
+});
+
+Route::prefix('/categories')->group(function () {
+    Route::get('/', [App\Http\Controllers\CategoriesController::class, "index"]);
+    Route::get('/{id}', [App\Http\Controllers\CategoriesController::class, "show"]);
+    Route::post('/', [App\Http\Controllers\CategoriesController::class, "store"]);
+    Route::patch('/{id}', [App\Http\Controllers\CategoriesController::class, "update"]);
+    Route::delete('/{id}', [App\Http\Controllers\CategoriesController::class, "destroy"]);
+});
