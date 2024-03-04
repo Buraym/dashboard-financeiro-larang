@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { environment } from "../environment/environment";
+import { Injectable } from "@angular/core";
 
 export interface IIncome {
   name: string;
@@ -11,6 +12,7 @@ export interface IIncome {
   isInvestment: boolean;
 }
 
+@Injectable({providedIn: 'root'})
 export class IncomesServices {
   private axios_instance: AxiosInstance | null = null;
 
@@ -23,9 +25,8 @@ export class IncomesServices {
   async getIncomes() {
     try {
       const result = await this.axios_instance?.get("incomes/");
-      return result;
+      return result!.data;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -35,19 +36,15 @@ export class IncomesServices {
       const result = await this.axios_instance?.get(`incomes/${id}`);
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
 
   async registerIncome(income: IIncome) {
     try {
-      const result = await this.axios_instance?.post("incomes/", {
-        income
-      });
+      const result = await this.axios_instance?.post("incomes/", income);
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -59,7 +56,6 @@ export class IncomesServices {
       });
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -69,7 +65,6 @@ export class IncomesServices {
       const result = await this.axios_instance?.delete(`incomes/${id}`);
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }

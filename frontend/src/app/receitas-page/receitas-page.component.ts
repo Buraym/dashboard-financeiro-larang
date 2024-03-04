@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { format } from 'date-fns';
 import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table/table.component';
 import { NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
-import { IIncome } from '../incomes.service';
+import { IIncome, IncomesServices } from '../incomes.service';
 import { ChartComponent, IChartData } from '../chart/chart.component';
 
 @Component({
@@ -13,7 +13,9 @@ import { ChartComponent, IChartData } from '../chart/chart.component';
   templateUrl: './receitas-page.component.html',
   styleUrl: './receitas-page.component.css'
 })
-export class ReceitasPageComponent {
+export class ReceitasPageComponent implements OnInit {
+
+  loading:boolean = true;
   // TABLE
   headers:Array<ITableHeader> = [
     {
@@ -104,33 +106,7 @@ export class ReceitasPageComponent {
   selectable_array_names: string = "";
   selected: number = 0;
 
-  chartData: Array<IChartData> = [
-    {
-      color: "#0d3b66",
-      data: 13.5,
-      label: "DESP.: 1"
-    },
-    {
-      color: "#faf0ca",
-      data: 13.5,
-      label: "DESP.: 2"
-    },
-    {
-      color: "#f4d35e",
-      data: 13.5,
-      label: "DESP.: 3"
-    },
-    {
-      color: "#ee964b",
-      data: 13.5,
-      label: "DESP.: 4"
-    },
-    {
-      color: "#f95738",
-      data: 13.5,
-      label: "DESP.: 5"
-    },
-  ]
+  chartData: Array<IChartData> = [];
 
   // MODALS
   open_register_modal = false;
@@ -171,7 +147,7 @@ export class ReceitasPageComponent {
     }
   }
 
-  //REGISTER
+  // REGISTER
   new_income: IIncome = {
     name: "",
     ammount: 0.01,
@@ -185,37 +161,82 @@ export class ReceitasPageComponent {
   changeNewIncome(type: "name" | "ammount" | "method" | "date" | "category" | "isInvestment" | "isLoan", ev: any){
     switch (type) {
       case 'name':
-        console.log(ev.target.value);
         this.new_income[type] = ev.target.value;
         break;
       case 'ammount':
-        console.log(ev.target.value);
         this.new_income[type] = ev.target.value;
         break;
       case 'method':
-        console.log(ev.target.value);
         this.new_income[type] = ev.target.value;
         break;
       case 'date':
-        console.log(ev.target.value);
         this.new_income[type] = ev.target.value;
         break;
       case 'category':
-        console.log(ev.target.value);
         this.new_income[type] = ev.target.value;
         break;
       case 'isInvestment':
-        console.log(ev.target.checked);
         this.new_income[type] = ev.target.checked;
         break;
       case 'isLoan':
-        console.log(ev.target.checked);
         this.new_income[type] = ev.target.checked;
         break;
     }
   }
 
-  //REGISTER
+  createIncome() {
+    this.incomesServices.registerIncome({
+      ammount: Number(this.new_income.ammount),
+      category: null,
+      date: this.new_income.date,
+      isInvestment: this.new_income.isInvestment,
+      isLoan: this.new_income.isLoan,
+      method: this.new_income.method,
+      name: this.new_income.name
+    }).then((result: any) => {
+      this.incomesServices.getIncomes().then((result) => {
+        console.log(result)
+        this.loading = true;
+        this.rows = result.map((row: any) => {
+          return {
+            id: String(row.id),
+            values: [
+              {
+                code: "name",
+                value: row.name
+              },
+              {
+                code: "ammount",
+                value: Number(row.ammount)
+              },
+              {
+                code: "date",
+                sortableValue: new Date(row.date).getTime(),
+                value: format(new Date(row.date), "dd/MM/yyyy")
+              },
+              {
+                code: "isInvestment",
+                sortableValue: row.isInvestment ? 1 : 0,
+                value: row.isInvestment ? "Sim" : "Não"
+              },
+            ]
+          }
+        });
+        this.chartData = result.map((row: any) => {
+          return {
+            color: "#136f63",
+            data: Number(row.ammount),
+            label: row.name
+          }
+        });
+        this.open_register_modal = false;
+        this.loading = false;
+      });
+    });
+
+  }
+
+  // UPDATE
   update_income: IIncome = {
     name: "",
     ammount: 0.01,
@@ -229,33 +250,71 @@ export class ReceitasPageComponent {
   changeUpdateIncome(type: "name" | "ammount" | "method" | "date" | "category" | "isInvestment" | "isLoan", ev: any){
     switch (type) {
       case 'name':
-        console.log(ev.target.value);
         this.update_income[type] = ev.target.value;
         break;
       case 'ammount':
-        console.log(ev.target.value);
         this.update_income[type] = ev.target.value;
         break;
       case 'method':
-        console.log(ev.target.value);
         this.update_income[type] = ev.target.value;
         break;
       case 'date':
-        console.log(ev.target.value);
         this.update_income[type] = ev.target.value;
         break;
       case 'category':
-        console.log(ev.target.value);
         this.update_income[type] = ev.target.value;
         break;
       case 'isInvestment':
-        console.log(ev.target.checked);
         this.update_income[type] = ev.target.checked;
         break;
       case 'isLoan':
-        console.log(ev.target.checked);
         this.update_income[type] = ev.target.checked;
         break;
     }
+  }
+
+  constructor(private incomesServices: IncomesServices) {
+
+  }
+
+  ngOnInit() {
+    this.incomesServices.getIncomes().then((result: any) => {
+      console.log(result)
+      this.rows = result.map((row: any) => {
+        return {
+          id: String(row.id),
+          values: [
+            {
+              code: "name",
+              value: row.name
+            },
+            {
+              code: "ammount",
+              value: Number(row.ammount)
+            },
+            {
+              code: "date",
+              sortableValue: new Date(row.date).getTime(),
+              value: format(new Date(row.date), "dd/MM/yyyy")
+            },
+            {
+              code: "isInvestment",
+              sortableValue: row.isInvestment ? 1 : 0,
+              value: row.isInvestment ? "Sim" : "Não"
+            },
+          ]
+        }
+      });
+      this.chartData = result.map((row: any) => {
+        return {
+          // color: ["#0d3b66", "#faf0ca", "#f4d35e", "#ee964b", "#f95738"][Math.floor(5 * Math.random())],]
+          color: "#136f63",
+          data: Number(row.ammount),
+          label: row.name
+        }
+      });
+      this.loading = true;
+      // console.log(this.chartData)
+    });
   }
 }

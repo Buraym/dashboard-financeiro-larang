@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output, booleanAttribute } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChange, booleanAttribute } from '@angular/core';
 
 export interface ITableHeader {
   name: string;
@@ -57,10 +57,6 @@ export class TableComponent {
     } else if (String(chosen_header?.sortable) === "string_desc") {
       chosen_sorted = "string";
     }
-
-    console.log(chosen_sorted);
-
-    console.log(chosen_header);
     let sorted_list = this.rows.sort((a, b) => {
       let a_value = a.values.find((value) => value.code === chosen_header?.code);
       let b_value = b.values.find((value) => value.code === chosen_header?.code);
@@ -84,7 +80,6 @@ export class TableComponent {
       }
       return h;
     })
-    console.log(sorted_list)
   }
 
   isChecked(id: string){
@@ -115,6 +110,14 @@ export class TableComponent {
       const updated_arr = this.rows.map((row) => row.id);
       this.selectable_array = updated_arr;
       this.selectable_array_parent.emit(updated_arr);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChange) {
+    let actual_value = changes.currentValue;
+    console.log(changes);
+    if (actual_value) {
+      this.rows = actual_value;
     }
   }
 }

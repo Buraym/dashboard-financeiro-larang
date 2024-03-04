@@ -76,7 +76,9 @@
       </button>
     </div>
   </div>
-  <div class="w-full flex justify-between items-center flex-wrap-reverse">
+  <div
+    class="w-full flex justify-between items-center flex-wrap gap-4 md:gap-0"
+  >
     <div class="flex w-full justify-center items-center md:w-3/4">
       <table-component
         class="w-full"
@@ -91,8 +93,8 @@
     </div>
     <div class="flex w-full justify-center items-center md:w-1/4">
       <chart
-        [chartTitle]="'TESTE TíTULO'"
-        [chartSubtitle]="'TESTE SUBTíTULO'"
+        [chartTitle]="'Porcentagem dos gastos'"
+        [chartSubtitle]="''"
         [chartData]="chartData"
       />
     </div>
@@ -103,7 +105,7 @@
     (active_parent)="updateModalState('register', $event)"
   >
     <div
-      class="w-full h-full flex-col justify-start items-center gap-8"
+      class="w-full h-full flex-col justify-start items-center gap-8 mb-3"
       content
     >
       <input
@@ -151,8 +153,8 @@
       </select>
       <input
         type="date"
-        [value]="new_expense.dueDate"
-        (change)="changeNewExpense('dueDate', $event)"
+        [value]="new_expense.due_date"
+        (change)="changeNewExpense('due_date', $event)"
         class="w-full mb-3 styled-input p-2 rounded-lg"
         placeholder="Data da validade"
         title="Data da validade"
@@ -181,6 +183,7 @@
     <div class="w-full h-full flex justify-end items-center gap-2" active>
       <button
         class="add-btn w-1/2 p-2 rounded-lg flex justify-center items-center gap-2"
+        (click)="createExpense()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -239,6 +242,7 @@
     <div class="w-full h-full flex justify-end items-center gap-2" active>
       <button
         class="delete-btn w-1/2 p-2 rounded-lg flex justify-center items-center gap-2"
+        (click)="deleteExpense()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

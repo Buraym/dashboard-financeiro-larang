@@ -39,6 +39,5 @@ export class DrawerComponent {
   opened_menu = false;
   OpenMenu() {
     this.opened_menu = !this.opened_menu;
-    console.log(this.opened_menu)
   }
 }

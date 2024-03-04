@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { environment } from "../environment/environment";
+import { Injectable } from "@angular/core";
 
 export interface IExpense {
   name: string;
@@ -7,11 +8,12 @@ export interface IExpense {
   method: "credit_card" | "debit_card" | "card" | "pix" | "money";
   date: string;
   category: null | string;
-  dueDate: null | string;
+  due_date: null | string;
   hasInstallments: boolean;
   installments: null | number;
 }
 
+@Injectable({providedIn: 'root'})
 export class ExpensesServices {
   private axios_instance: AxiosInstance | null = null;
 
@@ -24,9 +26,8 @@ export class ExpensesServices {
   async getExpenses() {
     try {
       const result = await this.axios_instance?.get("expenses/");
-      return result;
+      return result!.data;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -36,19 +37,17 @@ export class ExpensesServices {
       const result = await this.axios_instance?.get(`expenses/${id}`);
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
 
   async registerExpense(expense: IExpense) {
     try {
-      const result = await this.axios_instance?.post("expenses/", {
+      const result = await this.axios_instance?.post("expenses/",
         expense
-      });
+      );
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -60,7 +59,6 @@ export class ExpensesServices {
       });
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -70,7 +68,6 @@ export class ExpensesServices {
       const result = await this.axios_instance?.delete(`expenses/${id}`);
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }

@@ -1,4 +1,5 @@
-import { AfterRenderPhase, Component, Input, afterRender } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { AfterRenderPhase, Component, Input, SimpleChange, afterNextRender, afterRender } from '@angular/core';
 import Chart from 'chart.js/auto';
 
 export interface IChartData {
@@ -10,33 +11,36 @@ export interface IChartData {
 @Component({
   selector: 'chart',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css'
 })
 export class ChartComponent {
+  chart: any;
   chartId: string = `chart-${new Date().valueOf()}`;
-  dashboardChart: any;
   @Input({required: true}) chartTitle: string = "";
   @Input({required: true}) chartSubtitle: string = "";
   @Input({required: true}) chartData: Array<IChartData> = [];
-  chartOptions: any;
+  chartOptions: any = {
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
+
   constructor() {
-    this.chartOptions = {
-      responsive: true,
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    };
     afterRender(() => {
-      if (window && typeof window !== "undefined") {
-        this.dashboardChart = new Chart(
+      // if (this.chart) {
+      //   this.chart.destroy();
+      // }
+        this.chart = new Chart(
           // @ts-ignore
-          window.document.getElementById(this.chartId),
+          document.getElementById(this.chartId,),
+
           {
             type: 'doughnut',
             options: {
@@ -61,8 +65,46 @@ export class ChartComponent {
               }]
             },
           });
-      }
-
-    }, {phase: AfterRenderPhase.Write});
+          this.chart.update();
+    });
   }
+
+  ngOnChanges(changes: any) {
+      let actual_value = changes.currentValue ? changes.currentValue : changes.chartData.currentValue;
+      console.log(actual_value);
+      // if (changes.currentValue) {
+        if (this.chart) {
+          this.chart.destroy();
+        }
+        // this.chart = new Chart(
+        //   // @ts-ignore
+        //   document.getElementById(this.chartId),
+        //   {
+        //     type: 'doughnut',
+        //     options: {
+        //       responsive: true,
+        //       plugins: {
+        //         legend: {
+        //           position: 'top',
+        //         },
+        //         title: {
+        //           display: true,
+        //           text: this.chartTitle
+        //         }
+        //       }
+        //     },
+        //     data: {
+        //       labels: actual_value.map((row:any) => row.label),
+        //       datasets: [{
+        //         label: this.chartSubtitle,
+        //         data: actual_value.map((row:any) => row.data),
+        //         backgroundColor: actual_value.map((row:any) => row.color),
+        //         hoverOffset: 4
+        //       }]
+        //     },
+        //   });
+
+          // this.dashboardChart.update();
+      // }
+    }
 }

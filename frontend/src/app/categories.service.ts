@@ -1,11 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 import { environment } from "../environment/environment";
+import { Injectable } from "@angular/core";
 
 interface ICategory {
   name: string;
   color: string;
 }
 
+@Injectable({providedIn: 'root'})
 export class CategoriesServices {
   private axios_instance: AxiosInstance | null = null;
 
@@ -20,7 +22,6 @@ export class CategoriesServices {
       const result = await this.axios_instance?.get("categories/");
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -30,7 +31,6 @@ export class CategoriesServices {
       const result = await this.axios_instance?.get(`categories/${id}`);
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -42,7 +42,6 @@ export class CategoriesServices {
       });
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -54,7 +53,6 @@ export class CategoriesServices {
       });
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }
@@ -64,7 +62,6 @@ export class CategoriesServices {
       const result = await this.axios_instance?.delete(`categories/${id}`);
       return result;
     } catch (err: Error | any) {
-      console.log(err);
       return { err: err || err.msg };
     }
   }

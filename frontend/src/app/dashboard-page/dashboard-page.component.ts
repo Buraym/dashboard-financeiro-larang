@@ -4,10 +4,13 @@ import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { format } from 'date-fns';
 import { ChartComponent, IChartData } from '../chart/chart.component';
+import { ExpensesServices } from '../expenses.service';
+import { IncomesServices } from '../incomes.service';
 @Component({
   selector: 'dashboard-page',
   standalone: true,
   imports: [AnalyticalCardComponent, TableComponent, NgIf, NgFor, NgClass, ChartComponent],
+  providers: [ExpensesServices, IncomesServices],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css'
 })
@@ -162,4 +165,13 @@ export class DashboardPageComponent {
       label: "DESP.: 5"
     },
   ]
+
+  constructor(private expensesServices: ExpensesServices, private incomesServices: IncomesServices) {
+    this.expensesServices.getExpenses().then((result) => {
+      console.log(result);
+    })
+    this.incomesServices.getIncomes().then((result) => {
+      console.log(result);
+    })
+  }
 }

@@ -14,9 +14,9 @@ import { environment } from '../environment/environment';
 export class AppComponent implements OnInit {
   ngOnInit() {
     if (isDevMode()) {
-      console.log('DEV MODE.:');
+      // console.log('DEV MODE.:');
     } else {
-      console.log('PRODUCTION.:');
+      // console.log('PRODUCTION.:');
     }
   }
 }

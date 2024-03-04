@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { format } from 'date-fns';
 import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table/table.component';
 import { NgFor, NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
-import { IExpense } from '../expenses.service';
+import { ExpensesServices, IExpense } from '../expenses.service';
 import { ChartComponent, IChartData } from '../chart/chart.component';
+import { IncomesServices } from '../incomes.service';
 
 @Component({
   selector: 'despesas-page',
   standalone: true,
   imports: [TableComponent, ModalComponent, ChartComponent, NgIf, NgFor],
+  providers: [ExpensesServices, IncomesServices],
   templateUrl: './despesas-page.component.html',
   styleUrl: './despesas-page.component.css'
 })
 
-export class DespesasPageComponent {
+export class DespesasPageComponent implements OnInit {
+  loading: boolean = false;
   // TABLE
   headers:Array<ITableHeader> = [
     {
@@ -39,62 +42,7 @@ export class DespesasPageComponent {
       sortable: "number"
     },
   ]
-  rows:Array<ITableRows> = [
-    {
-      id: "15",
-      values: [
-        {
-          code: "name",
-          value: "Suprimentos da Lanchonete"
-        },
-        {
-          code: "ammount",
-          value: 13.57
-        },
-        {
-          code: "date",
-          sortableValue: new Date(2024, 1, 29).getTime(),
-          value: format(new Date(2024, 1, 29), "dd/MM/yyyy")
-        },
-      ]
-    },
-    {
-      id: "11",
-      values: [
-        {
-          code: "name",
-          value: "Compra de jogo: Fallout 4"
-        },
-        {
-          code: "ammount",
-          value: 30.00
-        },
-        {
-          code: "date",
-          sortableValue: new Date(2024, 1, 25).getTime(),
-          value: format(new Date(2024, 1, 25), "dd/MM/yyyy")
-        },
-      ]
-    },
-    {
-      id: "9",
-      values: [
-        {
-          code: "name",
-          value: "Troca de penu do fusca"
-        },
-        {
-          code: "ammount",
-          value: 157.40
-        },
-        {
-          code: "date",
-          sortableValue: new Date(2024, 1, 20).getTime(),
-          value: format(new Date(2024, 1, 20), "dd/MM/yyyy")
-        },
-      ]
-    }
-  ]
+  rows:Array<ITableRows> = [];
   footer_rows:Array<ITableFooter> = [
     {
       code: "tip",
@@ -105,42 +53,13 @@ export class DespesasPageComponent {
   selectable_array_ids: string = "";
   selectable_array_names: string = "";
   selected: number = 0;
-
-  chartData: Array<IChartData> = [
-    {
-      color: "#0d3b66",
-      data: 13.5,
-      label: "DESP.: 1"
-    },
-    {
-      color: "#faf0ca",
-      data: 13.5,
-      label: "DESP.: 2"
-    },
-    {
-      color: "#f4d35e",
-      data: 13.5,
-      label: "DESP.: 3"
-    },
-    {
-      color: "#ee964b",
-      data: 13.5,
-      label: "DESP.: 4"
-    },
-    {
-      color: "#f95738",
-      data: 13.5,
-      label: "DESP.: 5"
-    },
-  ]
-
+  chartData: Array<IChartData> = [];
   // MODALS
   open_register_modal = false;
   open_update_modal = false;
   open_delete_modal = false;
   today_date = format(new Date(), "yyyy-MM-dd");
   updateTables(value: any) {
-    console.log(value);
     this.selectable_array = value;
     this.selected = value.length
   }
@@ -173,101 +92,239 @@ export class DespesasPageComponent {
     }
   }
 
-  //REGISTER
+  // REGISTER
   new_expense: IExpense = {
     name: "",
     ammount: 0.01,
     method: "money",
     date: this.today_date,
     category: null,
-    dueDate: this.today_date,
+    due_date: this.today_date,
     hasInstallments: false,
     installments: null
   }
 
-  changeNewExpense(type: "name" | "ammount" | "method" | "date" | "category" | "dueDate" | "hasInstallments" | "installments", ev: any){
+  changeNewExpense(type: "name" | "ammount" | "method" | "date" | "category" | "due_date" | "hasInstallments" | "installments", ev: any){
     switch (type) {
       case 'name':
-        console.log(ev.target.value);
         this.new_expense[type] = ev.target.value;
         break;
       case 'ammount':
-        console.log(ev.target.value);
         this.new_expense[type] = ev.target.value;
         break;
       case 'method':
-        console.log(ev.target.value);
         this.new_expense[type] = ev.target.value;
         break;
       case 'date':
-        console.log(ev.target.value);
         this.new_expense[type] = ev.target.value;
         break;
       case 'category':
-        console.log(ev.target.value);
         this.new_expense[type] = ev.target.value;
         break;
-      case 'dueDate':
-        console.log(ev.target.value);
+      case 'due_date':
         this.new_expense[type] = ev.target.value;
         break;
       case 'hasInstallments':
-        console.log(ev.target.checked);
         this.new_expense[type] = ev.target.checked;
         break;
       case 'installments':
-        console.log(ev.target.value);
         this.new_expense[type] = ev.target.value;
         break;
     }
   }
 
-  //REGISTER
+  createExpense() {
+    console.log(
+      {
+
+        "name": this.new_expense.name,
+        "ammount": Number(this.new_expense.ammount),
+        "method": this.new_expense.method,
+        "category": null,
+        "date": this.new_expense.date,
+        "due_date": this.new_expense.due_date,
+        "hasInstallments": this.new_expense.hasInstallments,
+        "installments": this.new_expense.installments
+      },
+      {
+        "name": "Pastel de frango",
+        "ammount": 0.01,
+        "method": "credit_card",
+        "category": null,
+        "date": "2024-02-23",
+        "due_date": "2024-02-23",
+        "hasInstallments": false,
+        "installments": 0
+      }
+    );
+    this.expensesServices.registerExpense({
+      "name": this.new_expense.name,
+      "ammount": Number(this.new_expense.ammount),
+      "method": this.new_expense.method,
+      "category": null,
+      "date": this.new_expense.date,
+      "due_date": this.new_expense.due_date,
+      "hasInstallments": this.new_expense.hasInstallments,
+      "installments": this.new_expense.installments ? this.new_expense.installments : 0
+    }).then((result: any) => {
+      this.expensesServices.getExpenses().then((result) => {
+        console.log(result)
+        this.loading = true;
+        this.rows = result.map((row: any) => {
+          return {
+            id: String(row.id),
+            values: [
+              {
+                code: "name",
+                value: row.name
+              },
+              {
+                code: "ammount",
+                value: Number(row.ammount)
+              },
+              {
+                code: "date",
+                sortableValue: new Date(row.date).getTime(),
+                value: format(new Date(row.date), "dd/MM/yyyy")
+              },
+            ]
+          }
+        });
+        this.chartData = result.map((row: any) => {
+          return {
+            color: "#f95738",
+            data: Number(row.ammount),
+            label: row.name
+          }
+        });
+        this.open_register_modal = false;
+        this.loading = false;
+      });
+    });
+
+  }
+
+  // UPDATE
   update_expense: IExpense = {
     name: "",
     ammount: 0.01,
     method: "money",
     date: this.today_date,
     category: null,
-    dueDate: this.today_date,
+    due_date: this.today_date,
     hasInstallments: false,
     installments: null
   }
 
-  changeUpdateExpense(type: "name" | "ammount" | "method" | "date" | "category" | "dueDate" | "hasInstallments" | "installments", ev: any){
+  changeUpdateExpense(type: "name" | "ammount" | "method" | "date" | "category" | "due_date" | "hasInstallments" | "installments", ev: any){
     switch (type) {
       case 'name':
-        console.log(ev.target.value);
         this.update_expense[type] = ev.target.value;
         break;
       case 'ammount':
-        console.log(ev.target.value);
         this.update_expense[type] = ev.target.value;
         break;
       case 'method':
-        console.log(ev.target.value);
         this.update_expense[type] = ev.target.value;
         break;
       case 'date':
-        console.log(ev.target.value);
         this.update_expense[type] = ev.target.value;
         break;
       case 'category':
-        console.log(ev.target.value);
         this.update_expense[type] = ev.target.value;
         break;
-      case 'dueDate':
-        console.log(ev.target.value);
+      case 'due_date':
         this.update_expense[type] = ev.target.value;
         break;
       case 'hasInstallments':
-        console.log(ev.target.checked);
         this.update_expense[type] = ev.target.checked;
         break;
       case 'installments':
-        console.log(ev.target.value);
         this.update_expense[type] = ev.target.value;
         break;
     }
+  }
+
+  // DELETE
+
+  deleteExpense() {
+    this.expensesServices.deleteExpense(this.selectable_array[0]).then((_) => {
+      this.selectable_array = [];
+      this.selectable_array_ids = "";
+      this.selectable_array_names = "";
+      this.selected = 0;
+      this.expensesServices.getExpenses().then((result) => {
+        console.log(result)
+        this.rows = result.map((row: any) => {
+          return {
+            id: String(row.id),
+            values: [
+              {
+                code: "name",
+                value: row.name
+              },
+              {
+                code: "ammount",
+                value: Number(row.ammount)
+              },
+              {
+                code: "date",
+                sortableValue: new Date(row.date).getTime(),
+                value: format(new Date(row.date), "dd/MM/yyyy")
+              },
+            ]
+          }
+        });
+        this.chartData = result.map((row: any) => {
+          return {
+            color: "#f95738",
+            data: Number(row.ammount),
+            label: row.name
+          }
+        });
+        this.open_delete_modal = false;
+        this.loading = true;
+      });
+    })
+  }
+
+  constructor(private expensesServices: ExpensesServices) {
+
+  }
+
+  ngOnInit() {
+    this.expensesServices.getExpenses().then((result) => {
+      console.log(result)
+      this.rows = result.map((row: any) => {
+        return {
+          id: String(row.id),
+          values: [
+            {
+              code: "name",
+              value: row.name
+            },
+            {
+              code: "ammount",
+              value: Number(row.ammount)
+            },
+            {
+              code: "date",
+              sortableValue: new Date(row.date).getTime(),
+              value: format(new Date(row.date), "dd/MM/yyyy")
+            },
+          ]
+        }
+      });
+      this.chartData = result.map((row: any) => {
+        return {
+          // color: ["#0d3b66", "#faf0ca", "#f4d35e", "#ee964b", "#f95738"][Math.floor(5 * Math.random())],]
+          color: ["#f95738"],
+          data: Number(row.ammount),
+          label: row.name
+        }
+      });
+      this.loading = true;
+      // console.log(this.chartData)
+    });
   }
 }
