@@ -40,3 +40,7 @@ Route::prefix('/categories')->group(function () {
     Route::patch('/{id}', [App\Http\Controllers\CategoriesController::class, "update"]);
     Route::delete('/{id}', [App\Http\Controllers\CategoriesController::class, "destroy"]);
 });
+
+Route::prefix('/analytics')->group(function () {
+    Route::get('/', [App\Http\Controllers\AnalyticsController::class, "index"]);
+});

@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "33a60fe5-9d79-451f-9a9c-8b403ae32d89",
+		"name": "DASHBOARD_FINANC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15200947"
+	},
+	"item": [
+		{
+			"name": "EXPENSES",
+			"item": [
+				{
+					"name": "LIST_ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/expenses/"
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/expenses/1"
+					},
+					"response": []
+				},
+				{
+					"name": "STORE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pastel de frango\",\r\n    \"ammount\": 0.01,\r\n    \"method\": \"credit_card\",\r\n    \"category\": null,\r\n    \"date\": \"2024-02-23\",\r\n    \"due_date\": \"2024-02-23\",\r\n    \"hasInstallments\": false,\r\n    \"installments\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/expenses/"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pastel de pizza\",\r\n    \"method\": \"money\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/expenses/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DESTROY",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/expenses/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "INCOMES",
+			"item": [
+				{
+					"name": "LIST_ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/incomes/"
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/incomes/1"
+					},
+					"response": []
+				},
+				{
+					"name": "STORE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pastel de frango\",\r\n    \"ammount\": 0.01,\r\n    \"method\": \"credit_card\",\r\n    \"category\": null,\r\n    \"date\": \"2024-02-23\",\r\n    \"isLoan\": false,\r\n    \"isInvestment\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/incomes/"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Salario mensal\",\r\n    \"ammount\": 1500,\r\n    \"method\": \"money\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/incomes/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DESTROY",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/incomes/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORIES",
+			"item": [
+				{
+					"name": "LIST_ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/categories/"
+					},
+					"response": []
+				},
+				{
+					"name": "SHOW",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/categories/1"
+					},
+					"response": []
+				},
+				{
+					"name": "STORE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"TRABALHO\",\r\n    \"color\": \"#0d3b66\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/categories/"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"CASA\",\r\n    \"color\": \"#0d3b66\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/api/categories/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DESTROY",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/categories/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ANALYTICS",
+			"item": [
+				{
+					"name": "GET STATS MONTH",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/api/expenses/"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -4,7 +4,7 @@ import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table
 import { NgFor, NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { ExpensesServices, IExpense } from '../expenses.service';
-import { ChartComponent, IChartData } from '../chart/chart.component';
+import { ChartComponent, IChartData } from '../donut-chart/chart.component';
 import { IncomesServices } from '../incomes.service';
 
 @Component({

@@ -4,7 +4,7 @@ import { ITableFooter, ITableHeader, ITableRows, TableComponent } from '../table
 import { NgIf } from '@angular/common';
 import { ModalComponent } from '../modal/modal.component';
 import { IIncome, IncomesServices } from '../incomes.service';
-import { ChartComponent, IChartData } from '../chart/chart.component';
+import { ChartComponent, IChartData } from '../donut-chart/chart.component';
 
 @Component({
   selector: 'receitas-page',
